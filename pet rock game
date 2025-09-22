@@ -1,0 +1,86 @@
+def pet_rock_game():
+    rock_name = input("What will you name your pet rock? ")
+
+    rock = {
+        "happiness": 5,
+        "hunger": 5,
+        "max_stat": 10
+    }
+
+    print(f"\n--- Your Pet Rock, {rock_name} ---")
+    print("Take care of it well!\n")
+
+    while True:
+        print(f"--- Your Pet Rock, {rock_name} ---")
+        print(f"Happiness: {rock['happiness']}/{rock['max_stat']}")
+        print(f"Hunger: {rock['hunger']}/{rock['max_stat']}\n")
+
+        if rock['hunger'] <= 0:
+            print(f"{rock_name} starved and crumbled into dust.")
+            break
+        elif rock['hunger'] >= rock['max_stat']:
+            print(f"{rock_name} ate too much and shattered.")
+            break
+        elif rock['happiness'] <= 0:
+            print(f"{rock_name} got too sad and rolled away.")
+            break
+        elif rock['happiness'] >= rock['max_stat']:
+            print(f"{rock_name} is so happy it floated into space!")
+            break
+
+        print("What do you want to do?")
+        print("  1. Feed the rock")
+        print("  2. Play with the rock")
+        print("  3. Do nothing")
+        print("  4. Quit game")
+
+        choice = input("Your choice: ").strip()
+
+        if choice == "1":
+            rock['hunger'] = max(0, rock['hunger'] - 2)
+            rock['happiness'] = max(0, rock['happiness'] - 1)
+            if rock['hunger'] <= 2:
+                print(f"{rock_name} is full but looks a bit sleepy.")
+            else:
+                print(f"{rock_name} munches happily, then looks bored.")
+
+        elif choice == "2":
+            rock['happiness'] = min(rock['max_stat'], rock['happiness'] + 2)
+            rock['hunger'] = min(rock['max_stat'], rock['hunger'] + 1)
+            if rock['happiness'] >= 8:
+                print(f"{rock_name} is ecstatic and spins around joyfully!")
+            elif rock['happiness'] >= 5:
+                print(f"{rock_name} seems happier and wobbles excitedly!")
+            else:
+                print(f"{rock_name} plays along but looks tired.")
+
+        elif choice == "3":
+            # Reaction depends on stats
+            if rock['hunger'] >= 8:
+                print(f"{rock_name} grumbles quietly. It's very hungry.")
+            elif rock['happiness'] <= 2:
+                print(f"{rock_name} looks sad and rolls slightly away.")
+            else:
+                print(f"{rock_name} seems indifferent to your inaction.")
+
+        elif choice == "4":
+            print(f"\nYou decided to stop caring for {rock_name}.")
+            break
+
+        else:
+            print("\nInvalid choice. Try again!\n")
+            continue
+
+        rock['hunger'] = min(rock['max_stat'], rock['hunger'] + 1)
+        rock['happiness'] = max(0, rock['happiness'] - 1)
+
+        print(f"\n--- Stats after your action ---")
+        print(f"Hunger: {rock['hunger']}/{rock['max_stat']}")
+        print(f"Happiness: {rock['happiness']}/{rock['max_stat']}\n")
+
+
+if __name__ == "__main__":
+    pet_rock_game()
+
+
+
